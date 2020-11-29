@@ -1,0 +1,8 @@
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+}
+.container {
+  width: 22rem;
+  margin: 10px 0px;
+}
