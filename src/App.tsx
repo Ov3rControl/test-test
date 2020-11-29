@@ -1,8 +1,14 @@
 import React from "react";
-import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Home } from "./components/Home/Home";
+import { RecoilRoot } from "recoil";
 
 function App() {
-  return <div className="App"></div>;
+  return (
+    <RecoilRoot>
+      <Home />
+    </RecoilRoot>
+  );
 }
 
 export default App;
