@@ -6,22 +6,33 @@ import { useRecoilValue } from "recoil";
 import { repoListState } from "../../store/atoms/atom";
 import Button from "react-bootstrap/esm/Button";
 
-export const HomeView: FunctionComponent = (): JSX.Element => {
+type Props = {
+  rateRepo: (id: number) => void;
+};
+
+export const HomeView: FunctionComponent<Props> = ({
+  rateRepo,
+}: Props): JSX.Element => {
   const repoList = useRecoilValue<RepoDataType[]>(repoListState);
 
   return (
     <div className={styles.container}>
       <Button>{"Show Starred Only"}</Button>
       {repoList?.map((item) => {
-        const { id, name, url, stargazers_count } = item;
+        const { id, name, url, stargazers_count, starred } = item;
         return (
-          <RepoCard
-            key={id}
-            id={id}
-            name={name}
-            url={url}
-            stargazers_count={stargazers_count}
-          />
+          <>
+            <RepoCard
+              key={id}
+              id={id}
+              name={name}
+              url={url}
+              stargazers_count={stargazers_count}
+            />
+            <Button disabled={starred} onClick={() => rateRepo(id)}>
+              {starred ? "Stared" : "Star"}
+            </Button>
+          </>
         );
       })}
     </div>

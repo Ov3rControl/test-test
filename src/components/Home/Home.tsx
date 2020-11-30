@@ -32,13 +32,19 @@ export const Home: FunctionComponent = (): JSX.Element => {
     }
   }, [setRepoList, source.token]);
 
-  const RateRepo = (id: number) => {
-    const newList = replaceItemAtIndex(repoList, id, {
-      ...item,
-      text: value,
-    });
+  const rateRepo = (id: number) => {
+    const items = repoList.filter((item) => item.id === id);
+    const singleItem = items[0];
+    const index = repoList.findIndex((listItem) => listItem === singleItem);
 
+    const newList = replaceItemAtIndex(repoList, index, {
+      ...singleItem,
+      stargazers_count: singleItem.stargazers_count + 1,
+      starred: true,
+    });
     setRepoList(newList);
+    const fetchStarredRepoList = localStorage.getItem("starredRepoList");
+    localStorage.setItem("starredRepoList", JSON.stringify(singleItem));
   };
 
   useEffect(() => {
@@ -46,9 +52,9 @@ export const Home: FunctionComponent = (): JSX.Element => {
     return () => {
       source.cancel();
     };
-  }, [fetchLatestRepoData, source]);
+  }, []);
 
-  return <HomeView />;
+  return <HomeView rateRepo={rateRepo} />;
 };
 
 function replaceItemAtIndex(

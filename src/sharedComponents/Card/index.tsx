@@ -17,9 +17,6 @@ export const RepoCard: FunctionComponent<RepoDataType> = ({
       <Card.Header>
         <div className={styles.cardHeader}>
           <p>{name}</p>
-          <Button disabled={starred} variant="warning">
-            {starred ? "Starred" : "Star"}
-          </Button>
         </div>
       </Card.Header>
       <ListGroup key={id} variant="flush">
