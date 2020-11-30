@@ -42,8 +42,6 @@ export const Home: FunctionComponent = (): JSX.Element => {
       starred: true,
     };
     const newList = replaceItemAtIndex(repoList, index, starredRepo);
-    console.log(singleItem);
-    console.log(starredRepo);
     setRepoList(newList);
     saveRepoToLocalStorage(starredRepo);
   };
