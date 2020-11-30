@@ -24,7 +24,6 @@ export const HomeView: FunctionComponent<Props> = ({
         return (
           <>
             <RepoCard
-              key={id}
               id={id}
               name={name}
               url={url}
