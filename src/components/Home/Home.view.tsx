@@ -1,10 +1,11 @@
 import React, { FunctionComponent } from "react";
+import { useRecoilValue } from "recoil";
+import Button from "react-bootstrap/esm/Button";
 import { RepoDataType } from "../../types";
 import { RepoCard } from "../../sharedComponents/Card";
 import styles from "./Home.view.module.css";
-import { useRecoilValue } from "recoil";
-import { repoListState } from "../../store/atoms/atom";
-import Button from "react-bootstrap/esm/Button";
+import { RepoListFilters } from "./component/ItemFilter";
+import { filteredRepoListState } from "../../store/selectors/selectors";
 
 type Props = {
   rateRepo: (id: number) => void;
@@ -13,11 +14,11 @@ type Props = {
 export const HomeView: FunctionComponent<Props> = ({
   rateRepo,
 }: Props): JSX.Element => {
-  const repoList = useRecoilValue<RepoDataType[]>(repoListState);
+  const repoList = useRecoilValue<RepoDataType[]>(filteredRepoListState);
 
   return (
     <div className={styles.container}>
-      <Button>{"Show Starred Only"}</Button>
+      <RepoListFilters />
       {repoList?.map((item) => {
         const { id, name, url, stargazers_count, starred } = item;
         return (

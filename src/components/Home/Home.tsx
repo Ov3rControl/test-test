@@ -1,7 +1,7 @@
 import Axios, { AxiosResponse } from "axios";
 import React, { FunctionComponent } from "react";
 import { useRecoilState } from "recoil";
-// import { useImmer } from "use-immer";
+import { saveRepoToLocalStorage } from "../../helper/localStorage";
 import { repoListState } from "../../store/atoms/atom";
 import { RepoDataType } from "../../types";
 import HomeView from "./Home.view";
@@ -36,15 +36,16 @@ export const Home: FunctionComponent = (): JSX.Element => {
     const items = repoList.filter((item) => item.id === id);
     const singleItem = items[0];
     const index = repoList.findIndex((listItem) => listItem === singleItem);
-
-    const newList = replaceItemAtIndex(repoList, index, {
+    const starredRepo = {
       ...singleItem,
       stargazers_count: singleItem.stargazers_count + 1,
       starred: true,
-    });
+    };
+    const newList = replaceItemAtIndex(repoList, index, starredRepo);
+    console.log(singleItem);
+    console.log(starredRepo);
     setRepoList(newList);
-    const fetchStarredRepoList = localStorage.getItem("starredRepoList");
-    localStorage.setItem("starredRepoList", JSON.stringify(singleItem));
+    saveRepoToLocalStorage(starredRepo);
   };
 
   useEffect(() => {
