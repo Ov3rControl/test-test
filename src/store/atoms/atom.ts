@@ -12,3 +12,8 @@ export const repoListState: RecoilState<RepoDataType[]> = atom({
   key: "repoListState",
   default: [initalAppData],
 });
+
+export const repoListFilterState = atom({
+  key: "repoListFilterState",
+  default: "Show All",
+});
